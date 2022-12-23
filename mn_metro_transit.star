@@ -1,7 +1,7 @@
 """
 Applet: MN Metro Transit
-Summary: Train, BRT, ABRT, and Bus Departure Times
-Description: Shows Transit Departure Times from Selected Stop.
+Summary: Metro Transit Departures
+Description: Show Train, BRT, ABRT, and Bus Departure Times from a Selected Stop using a Metro Transit Stop Code.
 Authors: Alex Miller & Jonathan Wescott
 """
 
@@ -11,7 +11,7 @@ load("encoding/json.star", "json")
 load("schema.star", "schema")
 
 #Assign Default Stop Code
-DEFAULT_STOP_CODE = "15264"
+DEFAULT_STOP_CODE = "17781"
 
 def main(config):
     #Establish API URL
