@@ -29,7 +29,7 @@ def main(config):
         MTT_data = json.decode(MTT_cached)
     else:
         print("Miss! Calling Transit data.")
-        
+        MTT_data = MTT
     MTT_TITLE = MTT
     MTT_DEPARTURE_LEN = MTT["departures"]
 
@@ -102,6 +102,7 @@ def main(config):
     else:
         #departure slot 1
         #Find color and destination of first and second train and use that for rendering square color and 3 letter destination code
+        MTT_DESCRIPTION0 = MTT["stops"][0]["description"]
         MTT_ROUTE_SHORT_NAME0 = MTT["departures"][0]["route_short_name"]
         MTT_ROUTE_SHORT_NAME1 = MTT["departures"][1]["route_short_name"]
         MTT_DIRECTION0 = MTT["departures"][0]["direction_text"]
@@ -115,7 +116,7 @@ def main(config):
         r1Desc = MTT_DIRECTION0
         r2Desc = MTT_DIRECTION1
         depText1 = MTT_DEPARTURE0
-        depText2 = MTT_DEPARTURE0
+        depText2 = MTT_DEPARTURE1
 
     if r1Desc == "NB":
         r1Desc = "North"
