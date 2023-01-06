@@ -30,10 +30,8 @@ def main(config):
     else:
         print("Miss! Calling Transit data.")
         MTT_data = MTT
+    
     MTT_TITLE = MTT
-    MTT_DEPARTURE_LEN = MTT["departures"]
-
-
     #MTT_ROUTE_SHORT_NAME0 = MTT["departures"][0]["route_short_name"]
     #MTT_ROUTE_SHORT_NAME1 = MTT["departures"][1]["route_short_name"]
     #MTT_DIRECTION0 = MTT["departures"][0]["direction_text"]
@@ -41,9 +39,7 @@ def main(config):
     #MTT_DEPARTURE0 = MTT["departures"][0]["departure_text"]
     #MTT_DEPARTURE1 = MTT["departures"][1]["departure_text"]
 
-
     cache.set("MTT_rate", json.encode(MTT_data), ttl_seconds = 30)
-
     CB = "#333"
     CB2 = "#333"
     CT = "#fa0"
@@ -62,61 +58,65 @@ def main(config):
         CT2 = "#FFF"
         depText1 = "Bad"
         depText2 = "Stop#"
+    
+    else:
+        MTT_DEPARTURE_LEN = MTT["departures"]
+        MTT_data = dict(MTT_DEPARTURE_LEN = MTT_DEPARTURE_LEN)
 
         #no transit page
-    elif len(MTT_DEPARTURE_LEN) == 0:
-        MTT_DESCRIPTION0 = MTT["stops"][0]["description"]
-        MTT_data = dict(MTT_DESCRIPTION0 = MTT_DESCRIPTION0)
-        stopDesc = MTT_DESCRIPTION0
-        route1 = "  No"
-        route2 = "  No"
-        r1Desc = "   departures"
-        r2Desc = "   departures"
-        CB = "#222"
-        CB2 = "#222"
-        CT = "#777"
-        CT2 = "#777"
-        depText1 = ""
-        depText2 = ""
+        if len(MTT_DEPARTURE_LEN) == 0:
+            MTT_DESCRIPTION0 = MTT["stops"][0]["description"]
+            MTT_data = dict(MTT_DESCRIPTION0 = MTT_DESCRIPTION0)
+            stopDesc = MTT_DESCRIPTION0
+            route1 = "  No"
+            route2 = "  No"
+            r1Desc = "   departures"
+            r2Desc = "   departures"
+            CB = "#222"
+            CB2 = "#222"
+            CT = "#777"
+            CT2 = "#777"
+            depText1 = ""
+            depText2 = ""
 
-        #only 1 more departure
-    elif len(MTT_DEPARTURE_LEN) == 1:
-        MTT_ROUTE_SHORT_NAME0 = MTT["departures"][0]["route_short_name"]
-        MTT_DESCRIPTION0 = MTT["stops"][0]["description"]
-        MTT_DIRECTION0 = MTT["departures"][0]["direction_text"]
-        MTT_DEPARTURE0 = MTT["departures"][0]["departure_text"]
-        MTT_data = dict(MTT_DESCRIPTION0 = MTT_DESCRIPTION0, MTT_ROUTE_SHORT_NAME0 = MTT_ROUTE_SHORT_NAME0, MTT_DIRECTION0 = MTT_ROUTE_SHORT_NAME0, MTT_DEPARTURE0 = MTT_DEPARTURE0)
-        stopDesc = MTT_DESCRIPTION0
-        route1 = MTT_ROUTE_SHORT_NAME0
-        route2 = " No"
-        r1Desc = MTT_DIRECTION0
-        r2Desc = "   departures "
-        depText1 = MTT_DEPARTURE0
-        depText2 = ""
-        CB = "#333"
-        CB2 = "#222"
-        CT = "#fa0"
-        CT2 = "#777"
+            #only 1 more departure
+        elif len(MTT_DEPARTURE_LEN) == 1:
+            MTT_ROUTE_SHORT_NAME0 = MTT["departures"][0]["route_short_name"]
+            MTT_DESCRIPTION0 = MTT["stops"][0]["description"]
+            MTT_DIRECTION0 = MTT["departures"][0]["direction_text"]
+            MTT_DEPARTURE0 = MTT["departures"][0]["departure_text"]
+            MTT_data = dict(MTT_DESCRIPTION0 = MTT_DESCRIPTION0, MTT_ROUTE_SHORT_NAME0 = MTT_ROUTE_SHORT_NAME0, MTT_DIRECTION0 = MTT_ROUTE_SHORT_NAME0, MTT_DEPARTURE0 = MTT_DEPARTURE0)
+            stopDesc = MTT_DESCRIPTION0
+            route1 = MTT_ROUTE_SHORT_NAME0
+            route2 = " No"
+            r1Desc = MTT_DIRECTION0
+            r2Desc = "   departures "
+            depText1 = MTT_DEPARTURE0
+            depText2 = ""
+            CB = "#333"
+            CB2 = "#222"
+            CT = "#fa0"
+            CT2 = "#777"
 
-        #normal functioning page
-    else:
-        #departure slot 1
-        #Find color and destination of first and second train and use that for rendering square color and 3 letter destination code
-        MTT_DESCRIPTION0 = MTT["stops"][0]["description"]
-        MTT_ROUTE_SHORT_NAME0 = MTT["departures"][0]["route_short_name"]
-        MTT_ROUTE_SHORT_NAME1 = MTT["departures"][1]["route_short_name"]
-        MTT_DIRECTION0 = MTT["departures"][0]["direction_text"]
-        MTT_DIRECTION1 = MTT["departures"][1]["direction_text"]
-        MTT_DEPARTURE0 = MTT["departures"][0]["departure_text"]
-        MTT_DEPARTURE1 = MTT["departures"][1]["departure_text"]
-        MTT_data = dict(MTT_DESCRIPTION0 = MTT_DESCRIPTION0, MTT_ROUTE_SHORT_NAME0 = MTT_ROUTE_SHORT_NAME0, MTT_ROUTE_SHORT_NAME1 = MTT_ROUTE_SHORT_NAME1, MTT_DIRECTION0 = MTT_DIRECTION0, MTT_DIRECTION1 = MTT_DIRECTION1, MTT_DEPARTURE0 = MTT_DEPARTURE0, MTT_DEPARTURE1 = MTT_DEPARTURE1, MTT_DEPARTURE_LEN = MTT_DEPARTURE_LEN, MTT_TITLE = MTT_TITLE)
-        stopDesc = MTT_DESCRIPTION0
-        route1 = MTT_ROUTE_SHORT_NAME0
-        route2 = MTT_ROUTE_SHORT_NAME1
-        r1Desc = MTT_DIRECTION0
-        r2Desc = MTT_DIRECTION1
-        depText1 = MTT_DEPARTURE0
-        depText2 = MTT_DEPARTURE1
+            #normal functioning page
+        else:
+            #departure slot 1
+            #Find color and destination of first and second train and use that for rendering square color and 3 letter destination code
+            MTT_DESCRIPTION0 = MTT["stops"][0]["description"]
+            MTT_ROUTE_SHORT_NAME0 = MTT["departures"][0]["route_short_name"]
+            MTT_ROUTE_SHORT_NAME1 = MTT["departures"][1]["route_short_name"]
+            MTT_DIRECTION0 = MTT["departures"][0]["direction_text"]
+            MTT_DIRECTION1 = MTT["departures"][1]["direction_text"]
+            MTT_DEPARTURE0 = MTT["departures"][0]["departure_text"]
+            MTT_DEPARTURE1 = MTT["departures"][1]["departure_text"]
+            MTT_data = dict(MTT_DESCRIPTION0 = MTT_DESCRIPTION0, MTT_ROUTE_SHORT_NAME0 = MTT_ROUTE_SHORT_NAME0, MTT_ROUTE_SHORT_NAME1 = MTT_ROUTE_SHORT_NAME1, MTT_DIRECTION0 = MTT_DIRECTION0, MTT_DIRECTION1 = MTT_DIRECTION1, MTT_DEPARTURE0 = MTT_DEPARTURE0, MTT_DEPARTURE1 = MTT_DEPARTURE1, MTT_DEPARTURE_LEN = MTT_DEPARTURE_LEN, MTT_TITLE = MTT_TITLE)
+            stopDesc = MTT_DESCRIPTION0
+            route1 = MTT_ROUTE_SHORT_NAME0
+            route2 = MTT_ROUTE_SHORT_NAME1
+            r1Desc = MTT_DIRECTION0
+            r2Desc = MTT_DIRECTION1
+            depText1 = MTT_DEPARTURE0
+            depText2 = MTT_DEPARTURE1
 
     if r1Desc == "NB":
         r1Desc = "North"
