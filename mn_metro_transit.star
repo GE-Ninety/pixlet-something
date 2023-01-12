@@ -32,13 +32,7 @@ def main(config):
         MTT_data = MTT
     
     MTT_TITLE = MTT
-    #MTT_ROUTE_SHORT_NAME0 = MTT["departures"][0]["route_short_name"]
-    #MTT_ROUTE_SHORT_NAME1 = MTT["departures"][1]["route_short_name"]
-    #MTT_DIRECTION0 = MTT["departures"][0]["direction_text"]
-    #MTT_DIRECTION1 = MTT["departures"][1]["direction_text"]
-    #MTT_DEPARTURE0 = MTT["departures"][0]["departure_text"]
-    #MTT_DEPARTURE1 = MTT["departures"][1]["departure_text"]
-
+    
     cache.set("MTT_rate", json.encode(MTT_data), ttl_seconds = 30)
     CB = "#333"
     CB2 = "#333"
@@ -46,7 +40,7 @@ def main(config):
     CT2 = "#fa0"
 
     #invalid stop code page
-    if "400" in MTT_TITLE:
+    if "status" in MTT_TITLE:
         stopDesc = "Invalid Stop Number"
         route1 = "Error"
         route2 = "Error"
