@@ -1,8 +1,8 @@
 """
 Applet: MN Metro Transit
-Summary: Train, BRT, ABRT, and Bus Departure Times
-Description: Shows Transit Departure Times from Selected Stop.
-Author: Alex Miller & Jonathan Wescott
+Summary: Transit Departure Times
+Description: Shows train, BRT, ABRT, and bus departure times from the selected stop.
+Author: Jonathan Wescott and Alex Miller
 """
 
 load("cache.star", "cache")
@@ -12,12 +12,13 @@ load("render.star", "render")
 load("schema.star", "schema")
 
 #Assign Default Stop Code
-DEFAULT_STOP_CODE = "15264"
+DEFAULT_STOP_CODE = "51423"
+DEFAULT_STOP_NAME = ""
 
 def main(config):
     #Establish API URL
     stop_code = config.get("stop_code", DEFAULT_STOP_CODE)
-    stop_name = config.get("stop_name")
+    stop_name = config.get("stop_name", DEFAULT_STOP_NAME)
     url = "https://svc.metrotransit.org/NexTripv2/" + stop_code + "?format=json"
     cache_key = "MTT_rate_{0}".format(stop_code)
 
@@ -157,11 +158,11 @@ def main(config):
     elif route1 == "Red":
         CB = "#F00"
         CT = "#222"
-    
+
     elif route1 == "Gold":
         CB = "#FB0"
         CT = "#222"
-    
+
     elif route1 == "Purple":
         CB = "#A0C"
         CT = "#222"
@@ -186,7 +187,7 @@ def main(config):
     elif route2 == "Red":
         CB2 = "#F00"
         CT2 = "#222"
-    
+
     elif route2 == "Gold":
         CB = "#FB0"
         CT = "#222"
@@ -278,6 +279,6 @@ def get_schema():
                 name = "Stop Name (Optional)",
                 desc = "Give this stop a custom name to help identify it on your tidbyt",
                 icon = "list",
-            )
+            ),
         ],
     )
